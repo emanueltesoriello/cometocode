@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     widget.viewModel.showSnackBar =
         (message) => _showSnackbar(context, message);
     return WillPopScope(
-      onWillPop: () => Future.value(), //widget.onPop),
+      onWillPop: () async => widget.onPop(),
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -37,23 +37,35 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.arrow_back),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: Stack(
           children: [
-            Text(
-              localizations!.appTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(color: AppColors.primaryTextColor),
-            ),
-            Text(
-              localizations.description,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(color: AppColors.accentColor),
-            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: Dimension.padding,
+                  right: Dimension.padding,
+                  bottom: Dimension.padding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    localizations!.appTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: AppColors.primaryTextColor),
+                  ),
+                  Text(
+                    localizations.description,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: AppColors.accentColor),
+                  ),
+                  SizedBox(height: Dimension.padding),
+                  Placeholder()
+                ],
+              ),
+            )
           ],
         ),
       ),
